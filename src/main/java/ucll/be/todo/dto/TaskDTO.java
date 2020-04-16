@@ -1,5 +1,6 @@
 package ucll.be.todo.dto;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ public class TaskDTO {
     @NotEmpty(message = "Description cannot be empty.")
     private String description;
     private List<SubTaskDTO> subTasks;
-    @GeneratedValue
+    @Id @GeneratedValue
     private int ID;
 
     public TaskDTO(){
