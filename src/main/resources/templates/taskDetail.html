@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-<form method="post" th:action="@{'/tasks/' + ${task.getID()} + '/sub/create'}" th:object="${subTask}">
+<form method="post" th:action="@{'/tasks/' + ${task.getID()} + '/sub/create'}" th:object="${subTaskDTO}">
     <div class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">Add a subtask</div>

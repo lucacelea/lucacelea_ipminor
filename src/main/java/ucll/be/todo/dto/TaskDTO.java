@@ -1,39 +1,37 @@
-package ucll.be.todo.domain;
+package ucll.be.todo.dto;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Task {
+public class TaskDTO {
     @NotEmpty(message = "Title cannot be empty.")
     private String title;
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime localDateTime;
     @NotEmpty(message = "Description cannot be empty.")
     private String description;
-    @OneToMany(mappedBy = "task",fetch=FetchType.LAZY)
-    private List<SubTask> subTasks;
-    @Id @GeneratedValue
+    private List<SubTaskDTO> subTasks;
+    @GeneratedValue
     private int ID;
 
-    public Task(){
+    public TaskDTO(){
         subTasks = new ArrayList<>();
     }
 
-    public Task(String title, LocalDateTime localDateTime, String description){
+    public TaskDTO(String title, LocalDateTime localDateTime, String description){
         setTitle(title);
         setLocalDateTime(localDateTime);
         setDescription(description);
         subTasks = new ArrayList<>();
     }
 
-    private void setID(int ID) {
+    public void setID(int ID) {
         this.ID = ID;
     }
 
@@ -72,11 +70,11 @@ public class Task {
         return localDateTime.format(formatterDate) + " at " + localDateTime.format(formatterTime);
     }
 
-    public List<SubTask> getSubTasks() {
+    public List<SubTaskDTO> getSubTasks() {
         return subTasks;
     }
 
-    public void addSubTask(SubTask subTask) {
+    public void addSubTask(SubTaskDTO subTask) {
         this.subTasks.add(subTask);
     }
 
@@ -84,7 +82,7 @@ public class Task {
         subTasks.removeIf(t -> t.getID() == id);
     }
 
-    public void setSubTasks(List<SubTask> subTasks) {
+    public void setSubTasks(List<SubTaskDTO> subTasks) {
         this.subTasks = subTasks;
     }
 }

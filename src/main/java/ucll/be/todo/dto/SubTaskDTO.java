@@ -1,24 +1,23 @@
-package ucll.be.todo.domain;
+package ucll.be.todo.dto;
 
-import javax.persistence.*;
+import ucll.be.todo.domain.Task;
+
+import javax.persistence.GeneratedValue;
 import javax.validation.constraints.NotEmpty;
 
-@Entity
-public class SubTask {
+public class SubTaskDTO {
     @NotEmpty(message = "Title cannot be empty.")
     private String title;
     @NotEmpty(message = "Description cannot be empty.")
     private String description;
-    @Id @GeneratedValue
+    @GeneratedValue
     private int ID;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(nullable = false)
     private Task task;
 
-    public SubTask(){
+    public SubTaskDTO(){
     }
 
-    public SubTask(String title, String description){
+    public SubTaskDTO(String title, String description){
         setTitle(title);
         setDescription(description);
     }

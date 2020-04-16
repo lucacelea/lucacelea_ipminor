@@ -8,7 +8,7 @@
 <div class="page-header text-center">
     <h4><a th:href="@{'/tasks'}">Tasks</a></h4>
 </div>
-<form method="post" th:action="@{'/tasks/edit/' + ${task.getID()}}" th:object="${task}">
+<form method="post" th:action="@{'/tasks/edit/' + ${taskDTO.getID()}}" th:object="${taskDTO}">
     <div class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">Add a task</div>
