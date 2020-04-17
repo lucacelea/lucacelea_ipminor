@@ -1,8 +1,6 @@
 package ucll.be.todo.dto;
 
 import ucll.be.todo.domain.Task;
-
-import javax.persistence.GeneratedValue;
 import javax.validation.constraints.NotEmpty;
 
 public class SubTaskDTO {
@@ -10,7 +8,6 @@ public class SubTaskDTO {
     private String title;
     @NotEmpty(message = "Description cannot be empty.")
     private String description;
-    @GeneratedValue
     private int ID;
     private Task task;
 
