@@ -97,9 +97,9 @@ public class TaskController {
     @GetMapping("/{idT}/sub/remove/{idS}")
     public String removeSubTask(Model model, @PathVariable("idT") Integer idT,@PathVariable("idS") Integer idS){
         try {
-            taskService.getTaskByID(idT).removeSubTaskWithID(idS);
+            taskService.removeSubTask(idT,idS);
             model.addAttribute("task", taskService.getTaskByID(idT));
-            model.addAttribute("subTask",new SubTaskDTO());
+            model.addAttribute("subTaskDTO",new SubTaskDTO());
         } catch (Exception e) {
             model.addAttribute("error",e.getMessage());
             return "error";

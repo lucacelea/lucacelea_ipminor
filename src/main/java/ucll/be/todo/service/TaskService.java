@@ -11,4 +11,6 @@ public interface TaskService {
     TaskDTO getTaskByID(int id) throws Exception;
     void updateTask(TaskDTO taskDTO,Integer id);
     void addSubTask(SubTaskDTO subTaskDTO, Integer id);
+
+    void removeSubTask(int idT, int idS);
 }

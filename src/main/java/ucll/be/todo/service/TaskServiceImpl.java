@@ -7,6 +7,7 @@ import ucll.be.todo.domain.SubTask;
 import ucll.be.todo.domain.Task;
 import ucll.be.todo.dto.SubTaskDTO;
 import ucll.be.todo.dto.TaskDTO;
+import ucll.be.todo.repository.SubTaskRepository;
 import ucll.be.todo.repository.TaskRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,10 +15,12 @@ import java.util.stream.Collectors;
 @Service
 public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
+    private final SubTaskRepository subTaskRepository;
 
     @Autowired
-    public TaskServiceImpl(TaskRepository taskRepository){
+    public TaskServiceImpl(TaskRepository taskRepository, SubTaskRepository subTaskRepository){
         this.taskRepository = taskRepository;
+        this.subTaskRepository = subTaskRepository;
     }
 
     @Override
@@ -66,11 +69,14 @@ public class TaskServiceImpl implements TaskService {
             subTask.setTask(task);
             subTask.setTitle(subTaskDTO.getTitle());
             subTask.setDescription(subTaskDTO.getDescription());
-            task.addSubTask(subTask);
-            taskRepository.save(task);
+            subTaskRepository.save(subTask);
         } else {
             throw new IllegalArgumentException();
         }
+    }
+    @Override
+    public void removeSubTask(int idT, int idS){
+            subTaskRepository.deleteById(idS);
     }
 
     public Task taskDTOtoTask(TaskDTO taskDTO){
@@ -100,6 +106,7 @@ public class TaskServiceImpl implements TaskService {
         for (SubTask t: task.getSubTasks()
              ) {
             SubTaskDTO subTaskDTO = new SubTaskDTO();
+            subTaskDTO.setID(t.getID());
             subTaskDTO.setDescription(t.getDescription());
             subTaskDTO.setTitle(t.getTitle());
             subTaskDTO.setTask(t.getTask());
