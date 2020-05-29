@@ -4,9 +4,9 @@ import ucll.be.todo.domain.Task;
 import javax.validation.constraints.NotEmpty;
 
 public class SubTaskDTO {
-    @NotEmpty(message = "Title cannot be empty.")
+    @NotEmpty(message = "{TaskTitleEmpty}")
     private String title;
-    @NotEmpty(message = "Description cannot be empty.")
+    @NotEmpty(message = "{TaskDescriptionEmpty}")
     private String description;
     private int ID;
     private Task task;

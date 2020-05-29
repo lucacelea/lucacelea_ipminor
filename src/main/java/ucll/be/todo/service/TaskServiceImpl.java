@@ -69,6 +69,7 @@ public class TaskServiceImpl implements TaskService {
             subTask.setTask(task);
             subTask.setTitle(subTaskDTO.getTitle());
             subTask.setDescription(subTaskDTO.getDescription());
+            task.addSubTask(subTask);
             subTaskRepository.save(subTask);
         } else {
             throw new IllegalArgumentException();

@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="input-field col s12">
+        <label for="languageSelect" th:text="#{ChangeLang}"></label>
+        <select class="browser-default" id="languageSelect" onchange="changeLang()">
+            <option disabled selected th:text="#{Language}"></option>
+            <option value="en">English</option>
+            <option value="nl">Nederlands</option>
+        </select>
+    </div>
+</div>
+<script>
+    function changeLang(){
+        var language = $("#languageSelect").val();
+        if (language !== ''){
+            window.location.replace(window.location.pathname + '?lang=' + language);
+        }
+    }
+</script>

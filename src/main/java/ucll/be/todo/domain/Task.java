@@ -11,13 +11,13 @@ import java.util.List;
 
 @Entity
 public class Task {
-    @NotEmpty(message = "Title cannot be empty.")
+    @NotEmpty(message = "{TaskTitleEmpty}")
     private String title;
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime localDateTime;
-    @NotEmpty(message = "Description cannot be empty.")
+    @NotEmpty(message = "{TaskDescriptionEmpty}")
     private String description;
-    @OneToMany(mappedBy = "task",fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "task",fetch=FetchType.EAGER)
     private List<SubTask> subTasks;
     @Id @GeneratedValue
     private int ID;

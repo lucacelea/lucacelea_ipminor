@@ -5,9 +5,9 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class SubTask {
-    @NotEmpty(message = "Title cannot be empty.")
+    @NotEmpty(message = "{TaskTitleEmpty}")
     private String title;
-    @NotEmpty(message = "Description cannot be empty.")
+    @NotEmpty(message = "{TaskDescriptionEmpty}")
     private String description;
     @Id @GeneratedValue
     private int ID;

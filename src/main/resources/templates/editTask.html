@@ -2,28 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Tasks</title>
+    <title th:text="#{Title}"></title>
 </head>
 <body>
 <div class="page-header text-center">
-    <h4><a th:href="@{'/tasks'}">Tasks</a></h4>
+    <h4><a th:href="@{'/tasks'}" th:text="#{Header}"></a></h4>
 </div>
-<form method="post" th:action="@{'/tasks/edit/' + ${taskDTO.getID()}}" th:object="${taskDTO}">
+<form method="post" th:action="@{'/tasks/edit/' + ${taskID}}" th:object="${taskDTO}">
     <div class="container">
         <div class="panel panel-primary">
-            <div class="panel-heading">Add a task</div>
+            <div class="panel-heading" th:text="#{Edit}"></div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label" for="title">Title</label>
+                            <label class="control-label" for="title" th:text="#{LabelTitle}"></label>
                             <input type="text" class="form-control" name="title" id="title" th:field="*{title}">
                         </div>
                         <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"> </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label" for="description">Description</label>
+                            <label class="control-label" for="description" th:text="#{LabelDescription}"></label>
                             <input type="text" class="form-control" name="description" id="description" th:field="*{description}">
                         </div>
                         <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"> </div>
@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class='col-md-6'>
                         <div class="form-group">
-                            <label class="control-label" for="localDateTime">Due date</label>
+                            <label class="control-label" for="localDateTime" th:text="#{LabelDue}"></label>
                             <div class='input-group date' id="datePicker">
                                 <input type='text' class="form-control" name="localDateTime" id="localDateTime" th:field="*{localDateTime}">
                                 <span class="input-group-addon">
@@ -43,11 +43,12 @@
                         <div th:if="${#fields.hasErrors('localDateTime')}" th:errors="*{localDateTime}"> </div>
                     </div>
                 </div>
-                <input type="submit" class="btn btn-primary" value="Submit">
+                <input type="submit" class="btn btn-primary" th:value="#{Submit}">
             </div>
         </div>
     </div>
 </form>
+<div th:replace="language.html"></div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>

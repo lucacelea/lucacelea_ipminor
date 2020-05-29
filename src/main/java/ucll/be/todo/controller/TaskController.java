@@ -40,13 +40,19 @@ public class TaskController {
         return "redirect:/tasks";
     }
 
+    @GetMapping("/new")
+    public String getAddTask(){
+        return "redirect:/tasks";
+    }
+
     @GetMapping("/{id}")
     public String showDetail(Model model, @PathVariable("id") Integer id){
         try {
+            if (taskService.getTaskByID(id) == null) throw new Exception();
             model.addAttribute("task", taskService.getTaskByID(id));
             model.addAttribute("subTaskDTO",new SubTaskDTO());
         } catch (Exception e) {
-            model.addAttribute("error",e.getMessage());
+            model.addAttribute("error","Task with id " + id + " could not be found.");
             return "error";
         }
         return "taskDetail";
@@ -56,6 +62,7 @@ public class TaskController {
     public String showEdit(Model model, @PathVariable("id") Integer id){
         try {
             model.addAttribute("taskDTO", taskService.getTaskByID(id));
+            model.addAttribute("taskID",taskService.getTaskByID(id).getID());
         } catch (Exception e) {
             model.addAttribute("error",e.getMessage());
             return "error";
@@ -65,10 +72,12 @@ public class TaskController {
 
     @PostMapping("/edit/{id}")
     public String editTask(@ModelAttribute @Valid TaskDTO taskDTO, BindingResult bindingResult, Model model, @PathVariable("id") Integer id){
-        if (bindingResult.hasErrors()){
-            return "editTask";
-        }
         try {
+            if (taskService.getTaskByID(id) == null) throw new Exception("Task with id " + id + " could not be found.");
+            if (bindingResult.hasErrors()){
+                model.addAttribute("taskID",taskService.getTaskByID(id).getID());
+                return "editTask";
+            }
             taskService.updateTask(taskDTO,id);
             model.addAttribute("task", taskService.getTaskByID(id));
             model.addAttribute("subTaskDTO",new SubTaskDTO());
@@ -82,10 +91,24 @@ public class TaskController {
     @PostMapping("/{id}/sub/create")
     public String addSubTask(@ModelAttribute @Valid SubTaskDTO subTaskDTO, BindingResult bindingResult, Model model, @PathVariable("id") Integer id){
         try {
-            if (!bindingResult.hasErrors()) {
-                taskService.addSubTask(subTaskDTO, id);
-                model.addAttribute("subTask", new SubTaskDTO());
+            if (taskService.getTaskByID(id) == null) throw new Exception("Task with id " + id + " could not be found.");
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("task", taskService.getTaskByID(id));
+                return "taskDetail";
             }
+            taskService.addSubTask(subTaskDTO, id);
+            model.addAttribute("task", taskService.getTaskByID(id));
+            return "taskDetail";
+        } catch (Exception e) {
+            model.addAttribute("error",e.getMessage());
+            return "error";
+        }
+    }
+
+    @GetMapping("/{id}/sub/create")
+    public String getAddSubTask(@PathVariable("id") Integer id, Model model){
+        try {
+            if (taskService.getTaskByID(id) == null) throw new Exception("Task with id " + id + " could not be found.");
             model.addAttribute("task", taskService.getTaskByID(id));
             return "taskDetail";
         } catch (Exception e) {
