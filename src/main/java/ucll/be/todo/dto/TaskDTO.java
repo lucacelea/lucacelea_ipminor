@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskDTO {
-    @NotEmpty(message = "TaskTitleEmpty")
+    @NotEmpty(message = "{TaskTitleEmpty}")
     private String title;
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime localDateTime;
-    @NotEmpty(message = "TaskDescriptionEmpty")
+    @NotEmpty(message = "{TaskDescriptionEmpty}")
     private String description;
     private List<SubTaskDTO> subTasks;
     private int ID;
